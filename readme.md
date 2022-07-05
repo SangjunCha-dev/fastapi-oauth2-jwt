@@ -1,6 +1,6 @@
-# FastAPI With MongoDB
+# FastAPI With JWT
 
-> FastAPI와 MongoDB를 사용한 간단한 RestAPI 서버 입니다.
+> FastAPI를 사용한 간단한 로그인 RestAPI 서버 입니다.
 
 
 # Tech/Framework Used
@@ -8,7 +8,7 @@
 |명칭       |버전   |
 |---        |---    |
 |FastAPI    |0.78.0 |
-|MongoDB    |5.0.8  |
+|MariaDB    |10.8   |
 
 
 # 라이브러리 설치
@@ -39,20 +39,6 @@ python -m venv vnev
 # DB 설정
 
 - 설정 파일 : `app/config/secrets.json`
-
-## mysql
-
-
-
-## MongoDB
-- MongoDB Local 접속시 변수 형식
-    ```bash
-    MONGODB_URL="mongodb://localhost:27017"
-    ```
-- MongoDB Cloud 접속시 변수 형식
-    ```bash
-    MONGODB_URL="mongodb+srv://<username>:<password>@<url>/<db>?retryWrites=true&w=majority"
-    ```
 
 
 # 실행
