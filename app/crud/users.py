@@ -12,6 +12,8 @@ class CRUDUser(CRUDBase[UserModel, UserCreateSchema, UserUpdateSchema]):
     def create(self, db: Session, *, obj_in: UserCreateSchema) -> UserModel:
         if not hasattr(obj_in, "is_active"):
             obj_in.is_active = True
+        if not hasattr(obj_in, "is_superuser"):
+            obj_in.is_superuser = False
 
         db_obj = UserModel(
             name=obj_in.name,
