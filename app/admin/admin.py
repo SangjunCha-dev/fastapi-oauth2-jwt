@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get("/users/me", response_model=UserSchema)
+@router.get("/users/me", status_code=200, response_model=UserSchema)
 def get_user_me(
     db: Session = Depends(get_db),
     current_user: UserModel = Depends(get_current_active_superuser),
@@ -28,7 +28,7 @@ def get_user_me(
     return current_user
 
 
-@router.get("/users", response_model=list[UserSchema])
+@router.get("/users", status_code=200, response_model=list[UserSchema])
 def get_users(
     db: Session = Depends(get_db),
     skip: int = 0, 
@@ -45,7 +45,7 @@ def get_users(
     return users
 
 
-@router.post("/users", response_model=UserSchema)
+@router.post("/users", status_code=201, response_model=UserSchema)
 def create_user(
     *,
     db: Session = Depends(get_db),
@@ -66,7 +66,7 @@ def create_user(
     return user
 
 
-@router.get("/users/{user_id}", response_model=UserSchema)
+@router.get("/users/{user_id}", status_code=200, response_model=UserSchema)
 def get_user_by_id(
     user_id: int,
     current_user: UserModel = Depends(get_current_active_user),
@@ -83,7 +83,7 @@ def get_user_by_id(
 
     return user
 
-@router.put("/users/{user_id}", response_model=UserSchema)
+@router.put("/users/{user_id}", status_code=200, response_model=UserSchema)
 def update_user(
     *, 
     db: Session = Depends(get_db),

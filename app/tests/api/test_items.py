@@ -16,7 +16,7 @@ def test_create_item(
     }
     response = client.post("/items", headers=superuser_token_headers, json=data)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
     content = response.json()
 

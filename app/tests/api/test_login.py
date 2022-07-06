@@ -12,7 +12,7 @@ def test_get_access_token(client: TestClient) -> None:
     response = client.post(settings.TOKEN_URL, data=login_data)
     response_json = response.json()
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert "access_token" in response_json
     assert response_json["access_token"]
 
@@ -24,7 +24,7 @@ def test_use_access_token(
     response = client.post(f"/login/test-token", headers=superuser_token_headers)
     response_json = response.json()
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response_json["email"] == settings.FIRST_SUPERUSER_EMAIL
     assert "name" in response_json
     assert "age" in response_json

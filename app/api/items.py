@@ -18,7 +18,7 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=list[ItemSchema])
+@router.get("", status_code=200, response_model=list[ItemSchema])
 def get_items(
     db: Session = Depends(get_db),
     skip: int = 0, 
@@ -36,7 +36,7 @@ def get_items(
     return items
 
 
-@router.post("", response_model=ItemSchema)
+@router.post("", status_code=201, response_model=ItemSchema)
 def create_item(
     *, 
     db: Session = Depends(get_db),
@@ -50,7 +50,7 @@ def create_item(
     return item
 
 
-@router.put("/{id}", response_model=ItemSchema)
+@router.put("/{id}", status_code=200, response_model=ItemSchema)
 def update_item(
     *,
     db: Session = Depends(get_db),
@@ -71,7 +71,7 @@ def update_item(
     return item
 
 
-@router.get("/{id}", response_model=ItemSchema)
+@router.get("/{id}", status_code=200, response_model=ItemSchema)
 def get_item(
     *,
     db: Session = Depends(get_db),
@@ -90,7 +90,7 @@ def get_item(
     return item
 
 
-@router.delete("/{id}", response_model=ItemSchema)
+@router.delete("/{id}", status_code=200, response_model=ItemSchema)
 def delete_item(
     *,
     db: Session = Depends(get_db),

@@ -22,7 +22,7 @@ router = APIRouter(
 )
 
 
-@router.post("/access-token", response_model=TokenSchema)
+@router.post("/access-token", status_code=201, response_model=TokenSchema)
 def login_access_token(
     db: Session = Depends(get_db),
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -47,7 +47,7 @@ def login_access_token(
     }
 
 
-@router.post("/test-token", response_model=UserSchema)
+@router.post("/test-token", status_code=201, response_model=UserSchema)
 def test_token(
     current_user: UserModel = Depends(get_current_user)
 ) -> Any:

@@ -1,10 +1,10 @@
 from typing import Any
 
-from fastapi import APIRouter, Body, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
-from app.core.depends import get_current_active_user, get_current_active_superuser
+from app.core.depends import get_current_active_user
 from app.core.config import settings
 from app.crud.users import crud_user
 from app.models.users import UserModel
@@ -19,9 +19,8 @@ router = APIRouter(
 )
 
 
-@router.get("/me", response_model=UserSchema)
+@router.get("/me", status_code=200, response_model=UserSchema)
 def get_user_me(
-    db: Session = Depends(get_db),
     current_user: UserModel = Depends(get_current_active_user),
 ) -> Any:
     '''
@@ -30,7 +29,7 @@ def get_user_me(
     return current_user
 
 
-@router.post("", response_model=UserSchema)
+@router.post("", status_code=201, response_model=UserSchema)
 def create_user_public(
     *,
     db: Session = Depends(get_db),
@@ -50,7 +49,7 @@ def create_user_public(
     return user
 
 
-@router.put("", response_model=UserSchema)
+@router.put("", status_code=200, response_model=UserSchema)
 def update_user(
     *, 
     db: Session = Depends(get_db),
