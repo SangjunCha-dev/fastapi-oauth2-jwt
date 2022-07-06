@@ -30,7 +30,9 @@ class UserCreateSchema(UserBase):
         schema_extra = {
             "example": {
                 "email": "tester1@example.com",
-                "passwowrd": "password111",
+                "password": "password111",
+                "name": "tester1",
+                "age": 20,
             }
         }
 
@@ -66,9 +68,12 @@ class UserSchema(UserInDBBase):
         schema_extra = {
             "example": {
                 "email": "tester1@example.com",
-                "password": "password111",
                 "name": "tester1",
                 "age": 11,
+                "is_active": True,
+                "is_superuser": False,
+                "id": 2,
+                "items": []
             }
         }
 

@@ -46,7 +46,17 @@ class ItemInDBBase(ItemBase):
 
 
 class ItemSchema(ItemInDBBase):
-    pass
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "제품 이름1",
+                "description": "제품 설명문1",
+                "price": 1000,
+                "quantity": 10,
+                "id": 1,
+                "owner_id": 1
+            }
+        }
 
 
 class ItemInDB(ItemInDBBase):
