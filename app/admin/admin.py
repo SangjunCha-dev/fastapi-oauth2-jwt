@@ -18,7 +18,7 @@ router = APIRouter(
 
 
 @router.get("/users", response_model=list[UserSchema])
-def read_users(
+def get_users(
     db: Session = Depends(get_db),
     skip: int = 0, 
     limit: int = 100, 
@@ -30,7 +30,8 @@ def read_users(
     if not crud_user.is_superuser(current_user):
         raise HTTPException(status_code=400, detail="The user doesn't have enough privileges")
 
-    return crud_user.get_multi(db, skip=skip, limit=limit)
+    users = crud_user.get_multi(db, skip=skip, limit=limit)
+    return users
 
 
 @router.post("/users", response_model=UserSchema)
@@ -55,7 +56,7 @@ def create_user(
 
 
 @router.get("/users/{user_id}", response_model=UserSchema)
-def read_user_by_id(
+def get_user_by_id(
     user_id: int,
     current_user: UserModel = Depends(get_current_active_user),
     db: Session = Depends(get_db),

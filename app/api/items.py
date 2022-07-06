@@ -19,7 +19,7 @@ router = APIRouter(
 
 
 @router.get("", response_model=list[ItemSchema])
-def read_items(
+def get_items(
     db: Session = Depends(get_db),
     skip: int = 0, 
     limit: int = 100, 
@@ -72,7 +72,7 @@ def update_item(
 
 
 @router.get("/{id}", response_model=ItemSchema)
-def read_item(
+def get_item(
     *,
     db: Session = Depends(get_db),
     id: int,

@@ -20,7 +20,7 @@ router = APIRouter(
 
 
 @router.get("/me", response_model=UserSchema)
-def read_user_me(
+def get_user_me(
     db: Session = Depends(get_db),
     current_user: UserModel = Depends(get_current_active_user),
 ) -> Any:
