@@ -19,7 +19,6 @@ router = APIRouter(
 
 @router.get("/users/me", status_code=200, response_model=UserSchema)
 def get_user_me(
-    db: Session = Depends(get_db),
     current_user: UserModel = Depends(get_current_active_superuser),
 ) -> Any:
     '''
@@ -68,9 +67,10 @@ def create_user(
 
 @router.get("/users/{user_id}", status_code=200, response_model=UserSchema)
 def get_user_by_id(
+    *,
+    db: Session = Depends(get_db),
     user_id: int,
     current_user: UserModel = Depends(get_current_active_user),
-    db: Session = Depends(get_db),
 ) -> Any:
     '''
     user_id 사용자 정보 조회(관리자 권한)
