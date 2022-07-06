@@ -157,3 +157,25 @@ def test_update_user(db: Session) -> None:
     assert verify_password(new_password, updated_user.hashed_password)
     assert new_name == updated_user.name
     assert new_age == updated_user.age
+
+
+def test_get_by_email(db: Session) -> None:
+    email = random_email()
+    password = random_password()
+    name = random_name()
+    age = random_age()
+    
+    user_in = UserCreateSchema(
+        email=email, 
+        password=password,
+        name=name,
+        age=age,
+        is_superuser=True
+    )
+    user = crud_user.create(db, obj_in=user_in)
+
+    get_user = crud_user.get_by_email(db, email=email)
+
+    assert get_user
+    assert user.email == get_user.email
+    assert jsonable_encoder(user) == jsonable_encoder(get_user)
