@@ -50,20 +50,19 @@ def create_user_public(
     return user
 
 
-@router.put("/{user_id}", response_model=UserSchema)
+@router.put("", response_model=UserSchema)
 def update_user(
     *, 
     db: Session = Depends(get_db),
-    user_id: int,
     user_in: UserUpdateSchema,
-    current_user: UserModel = Depends(get_current_active_superuser),
+    current_user: UserModel = Depends(get_current_active_user),
 ) -> Any:
     '''
     사용자 정보 수정
     '''
-    user = crud_user.get(db, id=user_id)
+    user = crud_user.get(db, id=current_user.id)
     if not user:
-        raise HTTPException(status_code=404, detail="The user with this username does not exist in the system")
+        raise HTTPException(status_code=404, detail="The user with this email does not exist in the system")
 
     user = crud_user.update(db, db_obj=user, obj_in=user_in)
     return user
