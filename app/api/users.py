@@ -30,13 +30,11 @@ def read_user_me(
     return current_user
 
 
-@router.post("/register", response_model=UserSchema)
-def create_user_open(
+@router.post("", response_model=UserSchema)
+def create_user_public(
+    *,
     db: Session = Depends(get_db),
-    password: str = Body(...),
-    email: EmailStr = Body(...),
-    name: str = Body(None),
-    age: int = Body(None),
+    user_in: UserCreateSchema,
 ) -> Any:
     '''
     사용자 회원 가입
@@ -44,16 +42,10 @@ def create_user_open(
     if not settings.USERS_OPEN_REGISTRATION:
         raise HTTPException(status_code=403, detail="Open user registration is forbidden on this server")
     
-    user = crud_user.get_by_email(db, email=email)
+    user = crud_user.get_by_email(db, email=user_in.email)
     if user:
-        raise HTTPException(status_code=400, detail="The user with this username already exists in the system")
-    
-    user_in = UserCreateSchema(
-        email=email,
-        password=password,
-        name=name,
-        age=age,
-    )
+        raise HTTPException(status_code=400, detail="The user with this email already exists in the system")
+
     user = crud_user.create(db, obj_in=user_in)
     return user
 
