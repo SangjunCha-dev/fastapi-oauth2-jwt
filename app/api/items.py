@@ -36,6 +36,25 @@ def get_items(
     return items
 
 
+@router.get("/{id}", status_code=200, response_model=ItemSchema)
+def get_item(
+    *,
+    db: Session = Depends(get_db),
+    id: int,
+    current_user: UserModel = Depends(get_current_active_user),
+) -> Any:
+    '''
+    제품 정보 조회
+    '''
+    item = crud_item.get(db, id=id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    if not crud_user.is_superuser(current_user) and (item.owner_id != current_user.id):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
+
+    return item
+
+
 @router.post("", status_code=201, response_model=ItemSchema)
 def create_item(
     *, 
@@ -68,25 +87,6 @@ def update_item(
         raise HTTPException(status_code=400, detail="Not enough permissions")
     
     item = crud_item.update(db, db_obj=item, obj_in=item_in)
-    return item
-
-
-@router.get("/{id}", status_code=200, response_model=ItemSchema)
-def get_item(
-    *,
-    db: Session = Depends(get_db),
-    id: int,
-    current_user: UserModel = Depends(get_current_active_user),
-) -> Any:
-    '''
-    제품 정보 조회
-    '''
-    item = crud_item.get(db, id=id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    if not crud_user.is_superuser(current_user) and (item.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
-
     return item
 
 
