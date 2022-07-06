@@ -17,6 +17,17 @@ router = APIRouter(
 )
 
 
+@router.get("/users/me", response_model=UserSchema)
+def get_user_me(
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_active_superuser),
+) -> Any:
+    '''
+    현재 사용자 정보 조회
+    '''
+    return current_user
+
+
 @router.get("/users", response_model=list[UserSchema])
 def get_users(
     db: Session = Depends(get_db),
