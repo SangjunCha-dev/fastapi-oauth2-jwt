@@ -42,7 +42,8 @@ class Settings(BaseSettings):
     # super user info
     FIRST_SUPERUSER_EMAIL = FIRST_SUPERUSER_EMAIL
     FIRST_SUPERUSER_PASSWORD = FIRST_SUPERUSER_PASSWORD
-    TEST_USER_EMAIL = "tester@example.com"
+    TEST_USER_EMAIL = TEST_USER_EMAIL
+    TEST_USER_PASSWORD = TEST_USER_PASSWORD
 
 
 settings = Settings()
