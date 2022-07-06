@@ -1,0 +1,18 @@
+# temp
+__pycache__
+.vscode
+
+# git
+.git
+.gitignore
+
+# docker
+docker-compose*.yml
+
+# venv
+venv
+
+# developer
+log
+*.md
+secrets*.json
