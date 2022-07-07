@@ -83,5 +83,5 @@ python -m venv vnev
 ## 3. FastAPI 서버 테스트 실행
 
 ```
-> python -m pytest
+> docker-compose exec fastapi01 pytest app/
 ```
