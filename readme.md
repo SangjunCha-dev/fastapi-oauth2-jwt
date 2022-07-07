@@ -19,7 +19,7 @@
 # 라이브러리 설치
 
 ```bash
-python -m venv vnev
+python -m venv venv
 > venv/scripts/activate
 > pip install fastapi
 > pip install pydantic[email]
@@ -40,7 +40,8 @@ python -m venv vnev
 > pip install requests
 ```
 
-
+<!-- 
+# > pip install pytest-cov
 ---
 
 # DB 설정
@@ -84,4 +85,38 @@ python -m venv vnev
 
 ```
 > docker-compose exec fastapi01 pytest app/
+``` -->
+
+
+---
+
+# DB 설정
+
+- 설정 파일 위치
+```
+/app/config/secrets.json
+```
+
+
+---
+
+# 실행
+
+## 1. FastAPI 서버 실행
+
+```
+> uvicorn app.main:app --reload
+```
+
+## 2. Swagger 접속
+
+웹브라우저에서 `http://localhost:8000/docs` 주소로 접속
+
+
+---
+
+## 3. FastAPI 서버 테스트 실행
+
+```
+> pytest app/
 ```
